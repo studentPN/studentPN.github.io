@@ -14,7 +14,7 @@ $(function(){
 
 
         isOnline(channel,function(response){
-            console.log(response);
+            //console.log(response);
             if(response){
                 $('#frm_joint_student').hide('200',function(){
                     $('#frm_nickname_student').show(200);

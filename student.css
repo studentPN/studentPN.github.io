@@ -1,0 +1,16 @@
+input.username,select.username {
+    height: 50px;
+    line-height: 50px;
+    color: #333;
+    text-align: center;
+}
+
+button.username {
+    height: 50px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.hideTag{
+    display: none;
+}

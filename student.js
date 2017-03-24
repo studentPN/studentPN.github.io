@@ -1,7 +1,5 @@
 $(function(){
-
     var pubnub,channel;
-
     $('#frm_joint_student').submit(function(){
         $('#btn_joint_student').button('loading');
         channel = $('#game-pin').val();
@@ -28,8 +26,6 @@ $(function(){
         });
         return false;
     });
-
-
 
     $('#frm_nickname_student').submit(function(){
         $('#btn_nickname_student').button('loading');
@@ -77,8 +73,6 @@ $(function(){
         return false;
     });
 
-
-
     $('#frm_color_student').submit(function(){
         var teamColor = $('#color-student').val();
         //var teamColorText = $("#color-student :selected").text();
@@ -91,8 +85,7 @@ $(function(){
                 },
                 function (status) {
                     // handle state setting response
-                    console.log(status);
-
+                    //console.log(status);
                     $('#frm_color_student').hide('200',function(){
                         $('#yourIn').show(200);
                     });
@@ -115,7 +108,7 @@ $(function(){
                 console.log(message);
             },
             presence: function (presenceEvent) {
-                console.log(presenceEvent);
+                //console.log(presenceEvent);
                 if(presenceEvent.uuid === 'moderator'){
 
                     if(presenceEvent.action === 'leave'){
@@ -125,8 +118,6 @@ $(function(){
                     if(presenceEvent.action === 'timeout'){
                         location.reload();
                     }
-
-
                 }
             }
         });
@@ -135,11 +126,7 @@ $(function(){
             channels: [ch],
             withPresence: true // also subscribe to presence instances.
         });
-
-
-
     }
-
     function isOnline(number,cb){
         pubnub.hereNow(
             {
@@ -149,13 +136,12 @@ $(function(){
             function (status, response) {
                 // handle status, response
                 //console.log(status);
-                console.log(response);
+                //console.log(response);
                 //cb(response.channels[channel].occupants);
                 cb(response.totalOccupancy != 0);
             }
         );
     }
-
 
     function isNicknameExist(number,cb){
         pubnub.hereNow(
@@ -165,7 +151,7 @@ $(function(){
                 includeState: true
             },
             function (status, response) {
-                console.log(response);
+                //console.log(response);
                 cb(response.channels[channel].occupants);
             }
         );

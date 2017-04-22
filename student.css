@@ -14,3 +14,11 @@ button.username {
 .hideTag{
     display: none;
 }
+
+.choice-question{
+    background-color: #eef1f7;
+    height:40vh;
+    padding:40px;
+    cursor: pointer;
+    margin: 10px;
+}

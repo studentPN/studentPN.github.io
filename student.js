@@ -315,7 +315,7 @@ $(function(){
             timedCount();
         }
     }
-    function stopCount() {
+    function stopCount(){
         clearTimeout(t_interval);
         timeAnswer = 0;
     }

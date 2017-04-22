@@ -76,7 +76,7 @@ $(function(){
                             $.each(listTeamsColor, function (index, value) {
                                 $('#color-student').append($('<option>', {
                                     value: value.teamColor,
-                                    text: value.teamColorText
+                                    text: value.nameColor
                                 }));
                             });
                             $('#frm_nickname_student').hide('200', function () {
@@ -144,8 +144,11 @@ $(function(){
         if(mode === "A"){
             data = {nicknameStudent : nicknameStudent , answerPlayer : answerPlayer,timeAnswer : timeAnswer ,outputChannel: channel };
         }else{
+            /*data = {nicknameStudent : nicknameStudent , answerPlayer : answerPlayer ,timeAnswer : timeAnswer ,outputChannel: channel,
+                    modeType : mode, teamColor : teamColor, nameColor :nameColor};*/
+
             data = {nicknameStudent : nicknameStudent , answerPlayer : answerPlayer ,timeAnswer : timeAnswer ,outputChannel: channel,
-                    modeType : mode, teamColor : teamColor, nameColor :nameColor};
+                modeType : mode, teamColor : teamColor};
         }
 
 

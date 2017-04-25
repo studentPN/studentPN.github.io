@@ -13,64 +13,72 @@
 </head>
 <body>
 
-<div class="container text-center" style="margin: auto;max-width: 300px;padding-top: 150px">
+<div id="content" class="container text-center" style="margin: auto;padding-top: 150px">
     <h1> kahoot </h1>
-    <form id="frm_joint_student" class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="text" class="form-control username" id="game-pin" placeholder="Game pin" required="required">
+
+    <div class="row col-sm-12 text-center">
+        <div class="forms">
+            <form id="frm_joint_student" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control username" id="game-pin" placeholder="Game pin" required="required">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class=" col-sm-12">
+                        <button id="btn_joint_student" type="submit" class="btn btn-primary username col-xs-12"
+                                data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verify session..">Enter</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <form id="frm_nickname_student" class="form-horizontal hideTag">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control username" id="nickname-student" placeholder="Nickname" required="required">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class=" col-sm-12">
+                        <button id="btn_nickname_student" type="submit" class="btn btn-success username col-xs-12"
+                                data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verify nickname..">Enter</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <form id="frm_color_student" class="form-horizontal hideTag">
+                <div class="form-group">
+                    <div class="col-sm-12">
+
+                        <select id="color-student" name="team_color" class="form-control username" required="required">
+
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class=" col-sm-12">
+                        <button id="btn_color_student" type="submit" class="btn btn-success username col-xs-12"
+                                data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verify color..">Enter</button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="yourIn" class="text-center hideTag">
+                <h1>You're in!</h1>
             </div>
+
         </div>
-
-        <div class="form-group">
-            <div class=" col-sm-12">
-                <button id="btn_joint_student" type="submit" class="btn btn-primary username col-xs-12"
-                        data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verify session..">Enter</button>
-            </div>
-        </div>
-    </form>
-
-
-    <form id="frm_nickname_student" class="form-horizontal hideTag">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="text" class="form-control username" id="nickname-student" placeholder="Nickname" required="required">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class=" col-sm-12">
-                <button id="btn_nickname_student" type="submit" class="btn btn-success username col-xs-12"
-                        data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verify nickname..">Enter</button>
-            </div>
-        </div>
-    </form>
-
-
-    <form id="frm_color_student" class="form-horizontal hideTag">
-        <div class="form-group">
-            <div class="col-sm-12">
-
-                <select id="color-student" name="team_color" class="form-control username" required="required">
-
-                </select>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class=" col-sm-12">
-                <button id="btn_color_student" type="submit" class="btn btn-success username col-xs-12"
-                        data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Verify color..">Enter</button>
-            </div>
-        </div>
-    </form>
-
-    <div id="yourIn" class="text-center hideTag">
-        <h1>You're in!</h1>
     </div>
 
 </div>
+
+<div id="numberCircle" class="numberCircle dv_hidden">5</div>
 
 </body>
 </html>

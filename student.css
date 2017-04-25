@@ -17,8 +17,31 @@ button.username {
 
 .choice-question{
     background-color: #eef1f7;
-    height:40vh;
+    height:30vh;
     padding:40px;
     cursor: pointer;
     margin: 10px;
+}
+
+.numberCircle {
+    border-radius: 50%;
+    margin : 150px auto;
+    width: 150px;
+    height: 150px;
+    padding: 12px;
+
+    background: #fff;
+    border: 8px solid #eef1f7;
+    /*color: #666;*/
+    text-align: center;
+
+    font: 95px Arial, sans-serif;
+}
+.dv_hidden{
+    display: none;
+}
+
+.forms{
+    width: 50%;
+    margin: auto;
 }

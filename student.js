@@ -202,7 +202,7 @@ $(function(){
                 }
             },
             message: function (m) {
-                console.log(m);
+                //console.log(m);
 
                 var message = m.message;
 
@@ -244,7 +244,7 @@ $(function(){
                 }
             },
             presence: function (presenceEvent) {
-                console.log(presenceEvent);
+                //console.log(presenceEvent);
                 if(presenceEvent.uuid === 'moderator'){
 
                     if(presenceEvent.action === 'leave'){
@@ -305,7 +305,7 @@ $(function(){
             function (status, response) {
                 // handle status, response
                 //console.log(status);
-                console.log(response);
+                //console.log(response);
                 //cb(response.channels[channel].occupants);
                 cb(response.totalOccupancy != 0);
             }
@@ -321,7 +321,7 @@ $(function(){
                 includeState: true
             },
             function (status, response) {
-                console.log(response);
+                //console.log(response);
                 cb(response.channels[channel].occupants);
             }
         );

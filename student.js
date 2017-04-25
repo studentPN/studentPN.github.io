@@ -192,7 +192,7 @@ $(function(){
                                 channels: [channel]
                             },
                             function (status) {
-                                //console.log(status);
+                                console.log(status);
                                 $('#frm_color_student').hide('200',function(){
                                     $('#yourIn').show(200);
                                 });
@@ -202,46 +202,49 @@ $(function(){
                 }
             },
             message: function (m) {
-                //console.log(m);
+                console.log(m);
 
                 var message = m.message;
 
                 switch (message.response){
                     case 'send_quiz':
-                        $('body').html('<div id="content-questions" class="container-fluid" style="display: none"></div>')
+                        $('#content').html('<div id="content-questions" class="container-fluid row" style="display: none"></div>')
                         for(var i=1; i <= message.totalAnswers; i++){
                             $('#content-questions').append('' +
                                 '<div class="col-xs-6"><div data-id="'+i+'" class="choice-question"><h1>Answer '+i+'' +
                                 '</h1></div></div>');
                         }
 
-                        setTimeout(function(){
+                        countdown(5);
+
+                        /*setTimeout(function(){
                             $('#content-questions').show();
                             startCount();
-                        },5000);
+                        },5000);*/
 
 
                         break;
 
                     case 'send_attachment':
-                        $('body').html('<h1>show attachment</h1>');
+                        $('#content').html('<h1>show attachment</h1>');
                         break;
 
                     case 'game_state':
 
 
                         if(message.myUser == nicknameStudent) {
+                            var PtSlide = message.PtSlide || 0;
                             if (message.correct) {
-                                $('body').html('<h1>Correct</h1><h1>Score : ' + message.score + '</h1>');
+                                $('#content').html('<h1>Correct</h1><h1>point : +'+PtSlide+'</h1><h1>Total Score : ' + message.score + '</h1>');
                             } else {
-                                $('body').html('<h1>Incorrect</h1><h1>Score : ' + message.score + '</h1>');
+                                $('#content').html('<h1>Incorrect</h1><h1>point : +'+PtSlide+'</h1><h1>Total Score : ' + message.score + '</h1>');
                             }
                         }
                         break;
                 }
             },
             presence: function (presenceEvent) {
-                //console.log(presenceEvent);
+                console.log(presenceEvent);
                 if(presenceEvent.uuid === 'moderator'){
 
                     if(presenceEvent.action === 'leave'){
@@ -266,6 +269,33 @@ $(function(){
 
     }
 
+
+
+    var timerId;
+    function countdown(countr) {
+        var count = countr;
+        var numberCircle = '#numberCircle';
+
+        $(numberCircle).text(''+count);
+        $(numberCircle).show();
+
+        timerId = setInterval(function() {
+            count--;
+            //console.log(count);
+            $(numberCircle).text(''+count);
+
+
+            if(count == 0){
+                clearInterval(timerId);
+                $(numberCircle).hide();
+                $('#content-questions').show();
+                startCount();
+            }
+        }, 1000);
+    }
+
+
+
     function isOnline(number,cb){
         pubnub.hereNow(
             {
@@ -275,7 +305,7 @@ $(function(){
             function (status, response) {
                 // handle status, response
                 //console.log(status);
-                //console.log(response);
+                console.log(response);
                 //cb(response.channels[channel].occupants);
                 cb(response.totalOccupancy != 0);
             }
@@ -291,7 +321,7 @@ $(function(){
                 includeState: true
             },
             function (status, response) {
-                //console.log(response);
+                console.log(response);
                 cb(response.channels[channel].occupants);
             }
         );
@@ -315,7 +345,7 @@ $(function(){
             timedCount();
         }
     }
-    function stopCount(){
+    function stopCount() {
         clearTimeout(t_interval);
         timeAnswer = 0;
     }

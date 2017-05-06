@@ -45,3 +45,42 @@ button.username {
     width: 50%;
     margin: auto;
 }
+
+.fa-star,.fa-thumbs-up,.fa-thumbs-down,.fa-smile-o,.fa-meh-o,.fa-frown-o{
+    font-size: 60px;
+    cursor: pointer;
+}
+
+.bigFont{
+    font-size: 100px;
+}
+
+.fa-thumbs-up{
+    color: #5cb85c;
+}
+.fa-thumbs-down{
+    color: #f35;
+}
+.fa-star{
+    color: #aeaeae;
+}
+.star{
+    color: #eb670f;
+}
+.fa-smile-o{
+    color: #5cb85c;
+}
+.fa-meh-o{
+    color: #eb670f;
+}
+.fa-frown-o{
+    color: #f35;
+}
+.feedback-question{
+    margin-top: 60px;
+}
+
+
+h1 > span{
+    margin-left: 15px;
+}

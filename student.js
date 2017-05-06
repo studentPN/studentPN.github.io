@@ -6,6 +6,7 @@ $(function(){
     var channelInputLeaderboard = 'leaderboard-channel-input';
     var hover = true;
     var starCount,thumbsType,faceType,allotedTime;
+    var missedDeadline =true;
 
     $('#frm_joint_student').submit(function(){
         $('#btn_joint_student').button('loading');
@@ -127,6 +128,7 @@ $(function(){
     });
 
     $('body').on('click','.choice-question',function(event){
+        missedDeadline = false;
         var data;
         var btn = $(event.currentTarget);
         var answerPlayer = btn.attr('data-id');
@@ -266,7 +268,7 @@ $(function(){
 
                 switch (message.response){
                     case 'send_quiz':
-                        //allotedTime = parseInt(message.time);
+                        allotedTime = parseInt(message.time);
                         $('#content').html('<div id="content-questions" class="container-fluid row" style="display: none"></div>')
                         for(var i=1; i <= message.totalAnswers; i++){
                             $('#content-questions').append('' +
@@ -276,10 +278,7 @@ $(function(){
 
                         countdown(5);
 
-                        /*setTimeout(function(){
-                         $('#content-questions').show();
-                         startCount();
-                         },5000);*/
+
 
 
                         break;
@@ -372,6 +371,15 @@ $(function(){
                 $(numberCircle).hide();
                 $('#content-questions').show();
                 startCount();
+
+
+                var time = allotedTime*1000;
+                setTimeout(function(){
+                    if(missedDeadline){
+                        $('#content-questions').html('<h1>missed deadline</h1>');
+                    }
+
+                },time);
             }
         }, 1000);
     }

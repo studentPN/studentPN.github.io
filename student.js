@@ -268,6 +268,7 @@ $(function(){
 
                 switch (message.response){
                     case 'send_quiz':
+                        missedDeadline = true;
                         allotedTime = parseInt(message.time);
                         $('#content').html('<div id="content-questions" class="container-fluid row" style="display: none"></div>')
                         for(var i=1; i <= message.totalAnswers; i++){

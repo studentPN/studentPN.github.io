@@ -4,6 +4,8 @@ $(function(){
     var timeAnswer = 0;
     var t_interval;
     var channelInputLeaderboard = 'leaderboard-channel-input';
+    var hover = true;
+    var starCount,thumbsType,faceType,allotedTime;
 
     $('#frm_joint_student').submit(function(){
         $('#btn_joint_student').button('loading');
@@ -124,10 +126,6 @@ $(function(){
         return false;
     });
 
-
-
-
-
     $('body').on('click','.choice-question',function(event){
         var data;
         var btn = $(event.currentTarget);
@@ -145,7 +143,7 @@ $(function(){
             data = {nicknameStudent : nicknameStudent , answerPlayer : answerPlayer,timeAnswer : timeAnswer ,outputChannel: channel };
         }else{
             /*data = {nicknameStudent : nicknameStudent , answerPlayer : answerPlayer ,timeAnswer : timeAnswer ,outputChannel: channel,
-                    modeType : mode, teamColor : teamColor, nameColor :nameColor};*/
+             modeType : mode, teamColor : teamColor, nameColor :nameColor};*/
 
             data = {nicknameStudent : nicknameStudent , answerPlayer : answerPlayer ,timeAnswer : timeAnswer ,outputChannel: channel,
                 modeType : mode, teamColor : teamColor};
@@ -175,8 +173,68 @@ $(function(){
     });
 
 
+    $('body').on('mouseover','.fa-star',function(event){
+    //$('.glyphicon-star').click(function(){
+        //console.log('ok');
+        if(hover) {
+            var pos = parseInt($(this).attr('data-id'));
+            //console.log(pos);
+            for (var i = 1; i <= pos; i++) {
+                //console.log(i);
+                $('#star-' + i).css('color', '#eb670f');
+            }
+        }
+    });
+
+    $('body').on('mouseout','.fa-star',function(event){
+        if(hover) {
+            $('.fa-star').css('color', '#aeaeae');
+        }
+    });
 
 
+    $('body').on('click','.fa-star',function(event){
+        hover = false;
+        starCount = parseInt($(this).attr('data-id'));
+        $('.fa-star').css('color', '#aeaeae');
+        //console.log('starCount : '+starCount);
+        for(var i = 1; i<=starCount;i++){
+            //console.log(i);
+            $('#star-'+i).css('color','#eb670f');
+        }
+    });
+
+    $('body').on('click','.thumbs',function(event){
+        thumbsType = $(this).attr('data-id');
+        $('.thumbs').removeClass('bigFont');
+        $(this).addClass('bigFont')
+
+        //console.log('thumbsType : '+thumbsType);
+
+    });
+
+    $('body').on('click','.face',function(event){
+        faceType = $(this).attr('data-id');
+        //console.log('faceType : '+faceType);
+
+        var data ={response : 'sendFeedback',starCount : starCount, thumbsType : thumbsType, faceType : faceType};
+        $('#content').html('<h1>Game Over</h1>');
+        pubnub.publish(
+            {
+                message: data,
+                channel: channel,
+                sendByPost: false // true to send via post
+            },
+            function (status, response) {
+                if (status.error) {
+                    // handle error
+                    console.log(status);
+                    alert('error verify connection..!');
+                }
+            }
+        );
+
+    });
 
 
     function ready(ch) {
@@ -202,12 +260,13 @@ $(function(){
                 }
             },
             message: function (m) {
-                //console.log(m);
+                console.log(m);
 
                 var message = m.message;
 
                 switch (message.response){
                     case 'send_quiz':
+                        //allotedTime = parseInt(message.time);
                         $('#content').html('<div id="content-questions" class="container-fluid row" style="display: none"></div>')
                         for(var i=1; i <= message.totalAnswers; i++){
                             $('#content-questions').append('' +
@@ -218,9 +277,9 @@ $(function(){
                         countdown(5);
 
                         /*setTimeout(function(){
-                            $('#content-questions').show();
-                            startCount();
-                        },5000);*/
+                         $('#content-questions').show();
+                         startCount();
+                         },5000);*/
 
 
                         break;
@@ -234,13 +293,36 @@ $(function(){
 
                         if(message.myUser == nicknameStudent) {
                             var PtSlide = message.PtSlide || 0;
+                            //var timeSlide = allotedTime*1000;
+                            //console.log(timeSlide);
+                            //$('#content').html('<h1>waiting result...!</h1>');
+
+                            /*setTimeout(function(){
+                                if (message.correct) {
+                                    $('#content').html('<h1>Correct</h1><h1>point : +'+PtSlide+'</h1><h1>Total Score : ' + message.score + '</h1>');
+                                } else {
+                                    $('#content').html('<h1>Incorrect</h1><h1>point : +'+PtSlide+'</h1><h1>Total Score : ' + message.score + '</h1>');
+                                }
+                            },timeSlide);*/
+
                             if (message.correct) {
                                 $('#content').html('<h1>Correct</h1><h1>point : +'+PtSlide+'</h1><h1>Total Score : ' + message.score + '</h1>');
                             } else {
                                 $('#content').html('<h1>Incorrect</h1><h1>point : +'+PtSlide+'</h1><h1>Total Score : ' + message.score + '</h1>');
                             }
+
                         }
                         break;
+
+                    case 'getFeedback':
+                        //console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                        $('#content').html('<h3 class="feedback-question">Did you learn something?</h3><h1><span class="fa fa-thumbs-up thumbs" data-id="like"></span>' +
+                            '<span class="fa fa-thumbs-down thumbs" data-id="dislike"></span></h1>' +
+                            '<h3 class="feedback-question">How do you rate this Quiz?</h3><h1><span id="star-1" data-id="1" class="fa fa-star"></span>' +
+                            '<span id="star-2" data-id="2" class="fa fa-star"></span><span id="star-3" data-id="3" class="fa fa-star"></span>' +
+                            '<span id="star-4" data-id="4" class="fa fa-star"></span><span id="star-5" data-id="5" class="fa fa-star"></span></h1>' +
+                            '<h3 class="feedback-question">To continue, tell us how you feel?</h3><h1><span class="fa fa-smile-o face" data-id="smile" aria-hidden="true"></span>' +
+                            '<span class="fa fa-meh-o face" data-id="meh" aria-hidden="true"></span><span class="fa fa-frown-o face" data-id="frown" aria-hidden="true"></span></h1>');
                 }
             },
             presence: function (presenceEvent) {

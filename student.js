@@ -263,7 +263,7 @@ $(function(){
                 }
             },
             message: function (m) {
-                console.log(m);
+                //console.log(m);
 
                 var message = m.message;
 

@@ -164,7 +164,8 @@ $(function(){
                     console.log(status);
                     alert('error verify connection..!');
                 }else{
-                    console.log(status);
+                    //console.log(status);
+                    console.log('timeAnswer '+timeAnswer);
                     stopCount();
                 }
             }

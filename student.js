@@ -379,6 +379,7 @@ $(function(){
                 setTimeout(function(){
                     if(missedDeadline){
                         $('#content-questions').html('<h1>missed deadline</h1>');
+                        stopCount();
                     }
 
                 },time);

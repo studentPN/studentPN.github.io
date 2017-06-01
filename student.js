@@ -260,6 +260,15 @@ $(function(){
                             }
                         );
                     }
+
+                    window.onbeforeunload = function(event) {
+                        event.returnValue = "Are you sure you want to exit?";
+                    };
+                    window.onunload = function(){
+                        pubnub.unsubscribe({
+                            channels: [channel]
+                        });
+                    };
                 }
             },
             message: function (m) {
@@ -330,14 +339,11 @@ $(function(){
                 //console.log(presenceEvent);
                 if(presenceEvent.uuid === 'moderator'){
 
-                    if(presenceEvent.action === 'leave'){
-                        location.reload();
+                    if(presenceEvent.action === 'leave' || presenceEvent.action === 'timeout'){
+                        $('body').html('<h1>Game Over</h1>')
                     }
 
-                    if(presenceEvent.action === 'timeout'){
-                        location.reload();
-                    }
-
+                    
 
                 }
             }

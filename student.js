@@ -265,9 +265,7 @@ $(function(){
                         event.returnValue = "Are you sure you want to exit?";
                     };
                     window.onunload = function(){
-                        pubnub.unsubscribe({
-                            channels: [channel]
-                        });
+                        pubnub.unsubscribeAll();
                     };
                 }
             },
